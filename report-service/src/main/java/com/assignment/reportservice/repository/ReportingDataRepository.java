@@ -10,7 +10,14 @@ import org.springframework.stereotype.Repository;
 
 import com.assignment.reportservice.constants.ReportingDataConstants;
 import com.assignment.reportservice.model.ReportDataModel;
-
+/**
+ * 
+ * 
+ * @author Nagaraja R
+ * 
+ * This is a repository interface
+ *
+ */
 @Repository
 public interface ReportingDataRepository extends CrudRepository<ReportDataModel, Long> {
 

@@ -10,8 +10,11 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+@JsonInclude(value=Include.NON_NULL)
 @Entity
 @Table(name = "report_data")
 public class ReportDataModel {

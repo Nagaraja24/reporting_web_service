@@ -1,6 +1,5 @@
 package com.assignment.reportservice.util;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -9,6 +8,7 @@ import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +20,8 @@ import com.opencsv.CSVReader;
 /**
  * 
  * @author Nagaraja R
+ * 
+ * This is an utility class
  * 
  */
 public class ReportingDataUtility {
@@ -39,7 +41,7 @@ public class ReportingDataUtility {
 	 */
 	public static List<String> parseCSVFile(final String filePath) {
 		LOG.info("Entred in to parseCSVFile()");
-		LOG.debug("File path is : {}", filePath);
+		LOG.info("File path is : {}", filePath);
 
 		List<String> dataList = new ArrayList<>();
 		CSVReader csvReader = null;
@@ -56,15 +58,15 @@ public class ReportingDataUtility {
 				dataList.add(data);
 			}
 		} catch (FileNotFoundException e) {
-			LOG.error("Exception occured while parsing CSV: {}", e.getMessage());
+			throw new RuntimeException("CSV File not found, please check the file paths");
 		} catch (IOException e) {
-			LOG.error("Exception occured while parsing CSV: {}", e.getMessage());
+			throw new RuntimeException("CSV File parse exception, please check the file format");
 		} finally {
 			try {
 				if (csvReader != null)
 					csvReader.close();
 			} catch (IOException e) {
-				LOG.error("Exception occured while closing reader: {}", e.getMessage());
+				LOG.error("Exception occured while closing reader: {}", e.getLocalizedMessage());
 			}
 		}
 
@@ -76,15 +78,15 @@ public class ReportingDataUtility {
 	 * This method extracts the csv data of two files. This returns the
 	 * consolidated data with all the calculated metrics
 	 * 
-	 * @param janFile
-	 * @param febFile
+	 * @param janFilePath
+	 * @param febFilePath
 	 * @return report data with all the metrics
 	 */
-	public static List<ReportDataModel> extractCSVData(File janFile, File febFile) {
+	public static List<ReportDataModel> extractCSVData(String janFile, String febFile) {
 		LOG.info("Entred in to extractCSVData()");
 
-		List<String> january_csv_data = parseCSVFile(janFile.getAbsolutePath());
-		List<String> february_csv_data = parseCSVFile(febFile.getAbsolutePath());
+		List<String> january_csv_data = parseCSVFile(janFile);
+		List<String> february_csv_data = parseCSVFile(febFile);
 
 		List<ReportDataModel> report_consolidated_data = new ArrayList<>();
 		january_csv_data.forEach((data) -> {
@@ -218,15 +220,15 @@ public class ReportingDataUtility {
 		return revenue.multiply(BigDecimal.valueOf(1000)).divide(impressions_bigdecimal, 2, RoundingMode.CEILING);
 
 	}
-	
+
 	/**
 	 * 
 	 * Returns the month name for a valid id.
 	 * 
-	 * Valid IDS: 
+	 * Valid IDS:
 	 * 
-	 * {@value 1} and {@value jan} for JANUARY
-	 * {@value 2} and {@value feb} for FEBRUARY
+	 * {@value 1} and {@value jan} for JANUARY {@value 2} and {@value feb} for
+	 * FEBRUARY
 	 * 
 	 * 
 	 * @param monthId
@@ -234,12 +236,33 @@ public class ReportingDataUtility {
 	 */
 	public static String getMonthName(String monthId) {
 
-		if (monthId.equals("1") || monthId.equalsIgnoreCase("jan"))
-			return "JANUARY";
-		else if (monthId.equals("2") || monthId.equalsIgnoreCase("feb"))
-			return "FEBRUARY";
+		Objects.requireNonNull(monthId, "Month Id cannot be null");
+
+		if ("1".equals(monthId) || "jan".equalsIgnoreCase(monthId))
+			return ReportingDataConstants.JANUARY;
+		else if ("2".equals(monthId) || "feb".equalsIgnoreCase(monthId))
+			return ReportingDataConstants.FEBRUARY;
 		else
 			return monthId;
+
+	}
+
+	/**
+	 * Returns the site name for valid site id
+	 * 
+	 * @param siteName
+	 * @return Site Name
+	 */
+	public static String getSiteName(String siteId) {
+
+		Objects.requireNonNull(siteId, "Site Id cannot be null");
+
+		if ("desktop_web".equalsIgnoreCase(siteId))
+			return ReportingDataConstants.DESKTOP_WEB_SITE_NAME;
+		else if ("mobile_web".equalsIgnoreCase(siteId))
+			return ReportingDataConstants.MOBILE_WEB_SITE_NAME;
+		else
+			return siteId;
 
 	}
 

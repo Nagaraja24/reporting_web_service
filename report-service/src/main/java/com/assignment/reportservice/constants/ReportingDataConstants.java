@@ -9,6 +9,11 @@ public interface ReportingDataConstants {
 	public int CLICKS = 3;
 	public int CONVERSIONS = 4;
 	public int REVENUE = 5;
+	public String JANUARY = "JANUARY";
+	public String FEBRUARY = "FEBRUARY";
+
+	public String DESKTOP_WEB_SITE_NAME = "desktop web";
+	public String MOBILE_WEB_SITE_NAME = "mobile web";
 
 	public String GET_ALL_REPORTS_QUERY = "select report from ReportDataModel report";
 	public String GET_REPORT_BY_MONTH_AND_PARAM_QUERY = "select reportData from ReportDataModel reportData WHERE LOWER(reportData.month) = LOWER(:month) AND LOWER(reportData.site) = LOWER(:site)";
