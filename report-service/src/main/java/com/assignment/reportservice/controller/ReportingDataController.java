@@ -16,7 +16,7 @@ import com.assignment.reportservice.service.ReportingDataService;
  * 
  * @author Nagaraja R
  * 
- * This is controller class
+ * This is a controller class
  *
  */
 @RestController
@@ -42,7 +42,7 @@ public class ReportingDataController {
 	}
 
 	@GetMapping("/reports/{month}/{site}")
-	public ReportDataModel getReportByMonthAndSite(@PathVariable("month") String month,	@PathVariable("site") String site) {
+	public ReportDataModel getReportByMonthAndSite(@PathVariable("month") String month, @PathVariable("site") String site) {
 		return reportDataService.getReportDataByMonthAndSite(month, site);
 	}
 
