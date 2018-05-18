@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,7 +20,7 @@ import com.assignment.reportservice.service.ReportingDataService;
  *
  */
 @RestController
-@RequestMapping("/reports")
+@RequestMapping("/reportservice")
 public class ReportingDataController {
 
 	@Autowired
@@ -30,17 +31,17 @@ public class ReportingDataController {
 		return reportDataService.testService();
 	}
 
-	@GetMapping("/savedata")
+	@PutMapping("/reports")
 	public String saveDataFromCSVToDatabase() {
 		return reportDataService.saveReportData();
 	}
 
-	@GetMapping("/getAllReports")
+	@GetMapping("/reports")
 	public List<ReportDataModel> getAllReports() {
 		return reportDataService.getAllReportData();
 	}
 
-	@GetMapping("/getReport/{month}/{site}")
+	@GetMapping("/reports/{month}/{site}")
 	public ReportDataModel getReportByMonthAndSite(@PathVariable("month") String month,	@PathVariable("site") String site) {
 		return reportDataService.getReportDataByMonthAndSite(month, site);
 	}

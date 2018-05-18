@@ -54,7 +54,7 @@ public class ReportingDataControllerTest {
 		
 		Mockito.when(reportingDataService.testService()).thenReturn("Service is Up");
 		
-		mockMvc.perform(get("/reports/test"))
+		mockMvc.perform(get("/reportservice/test"))
 		.andExpect(status().isOk())
 		.andExpect(content().string("Service is Up"));
 	}
@@ -68,7 +68,7 @@ public class ReportingDataControllerTest {
 		
 		Mockito.when(reportingDataService.getReportDataByMonthAndSite("jan", "android")).thenReturn(reportData);
 		
-		mockMvc.perform(get("/reports/getReport/jan/android")
+		mockMvc.perform(get("/reportservice/reports/jan/android")
 		.accept(MediaType.APPLICATION_JSON))
 		.andExpect(status().isOk())
 		.andExpect(jsonPath("$.month",Matchers.is("january")))
