@@ -1,6 +1,6 @@
 # reporting_web_service
 
-This application extract the data from the csv files and find out the additional metrics and stores in to in memory h2 database.
+This application extract the data from the csv files [CSVFiles](https://github.com/Nagaraja24/reporting_web_service/tree/master/docs/csvfiles) and find out the additional metrics and stores in to in memory h2 database.
 This application exposes four end points:
 
 * `GET - /test` Test for application status
@@ -26,3 +26,11 @@ The H2 database console can be accessed at `http://localhost:8090/h2`
 User Name: `sa`
 Password: Not required
 And click on `connect` to take in to database part.
+
+CSV Files 
+---
+You can find csvfiles here [CSVFiles](https://github.com/Nagaraja24/reporting_web_service/tree/master/docs/csvfiles).
+
+User Guide
+---
+You can find the userguide here [UserGuide](https://github.com/Nagaraja24/reporting_web_service/tree/master/docs/userguide).
