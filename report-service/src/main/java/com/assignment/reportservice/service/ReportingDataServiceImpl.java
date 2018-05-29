@@ -26,7 +26,7 @@ public class ReportingDataServiceImpl implements ReportingDataService {
 	private static final Logger LOG = LoggerFactory.getLogger(ReportingDataServiceImpl.class);
 
 	@Autowired
-	ReportingDataRepository reportingDataRepository;
+	private ReportingDataRepository reportingDataRepository;
 
 	@Autowired
 	private Environment env;
